@@ -20,12 +20,12 @@ public class ColWander : MonoBehaviour
 
         if (avoidSteering.linearAcceleration == Vector3.zero)
         {
-            // No hay amenaza → wander toma control completo
+            // No threats, wander takes full control
             movement.Move(wanderSteering);
         }
         else
         {
-            // Hay amenaza → evasión toma control
+            // Threats, collision avoidance takes control
             movement.Move(avoidSteering);
         }
     }
