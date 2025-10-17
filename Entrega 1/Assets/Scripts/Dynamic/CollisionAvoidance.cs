@@ -41,7 +41,6 @@ public class CollisionAvoidance : MonoBehaviour
         Vector3 characterPos = transform.position;
         Vector3 characterVel = movement.linearVelocity;
 
-        // 🟥 Separation directa si hay NPCs dentro del radius
         Vector3 separationForce = Vector3.zero;
         foreach (Transform target in targets)
         {
@@ -63,7 +62,6 @@ public class CollisionAvoidance : MonoBehaviour
             return result;
         }
 
-        // 🟨 Collision Avoidance predictiva
         float shortestTime = Mathf.Infinity;
         Transform firstTarget = null;
 
@@ -113,7 +111,6 @@ public class CollisionAvoidance : MonoBehaviour
             return result;
         }
 
-        // 🟦 Desactivar evasión si la colisión ya fue evitada
         bool collisionAlreadyAvoided = firstDistance > lastDistanceToTarget && firstDistance > radius * 1.2f;
         lastDistanceToTarget = firstDistance;
 
@@ -126,7 +123,6 @@ public class CollisionAvoidance : MonoBehaviour
             return result;
         }
 
-        // 🟩 Dirección de evasión
         Vector3 avoidanceDirection;
         if (firstMinSeparation <= 0f || firstDistance < 2f * radius)
         {
@@ -149,7 +145,6 @@ public class CollisionAvoidance : MonoBehaviour
 
         avoidanceDirection.Normalize();
 
-        // 🔁 Suavizado y limitación de giro
         float maxAngleChange = 45f;
         float angleDiff = Vector3.SignedAngle(previousAvoidance, avoidanceDirection, Vector3.forward);
         if (Mathf.Abs(angleDiff) > maxAngleChange && previousAvoidance != Vector3.zero)
