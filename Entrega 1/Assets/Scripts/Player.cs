@@ -16,6 +16,5 @@ public class Player : MonoBehaviour
 
         velocity = new Vector3(speedX, speedY, 0f) * moveSpeed;
         KinematicMovement.Move(transform, velocity, moveSpeed);
-        //transform.position = TeletransportUtils.GetWrappedPosition(transform.position);
     }
 }
