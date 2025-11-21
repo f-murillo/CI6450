@@ -41,17 +41,4 @@ public static class TeletransportUtils
 
         return wrapped;
     }
-
-    public static bool IsOutsideBounds(Vector3 position, float margin = 0f)
-    {
-        Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, Camera.main.nearClipPlane));
-        Vector3 topRight   = Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, Camera.main.nearClipPlane));
-
-        float minX = bottomLeft.x - margin;
-        float maxX = topRight.x + margin;
-        float minY = bottomLeft.y - margin;
-        float maxY = topRight.y + margin;
-
-        return position.x < minX || position.x > maxX || position.y < minY || position.y > maxY;
-    }
 }

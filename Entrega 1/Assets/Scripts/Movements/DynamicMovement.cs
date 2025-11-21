@@ -31,8 +31,4 @@ public class DynamicMovement : MonoBehaviour
         transform.position = TeletransportUtils.GetWrappedPosition(transform.position);
         transform.Rotate(0f, 0f, angularVelocity * Time.deltaTime);
     }
-    
-
-
-
 }

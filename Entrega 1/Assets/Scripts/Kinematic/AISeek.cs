@@ -12,8 +12,7 @@ public class AISeek : MonoBehaviour
         velocity = useExplicitPosition 
         ? TeletransportUtils.GetWrappedDirection(transform.position, targetPosition) 
         : TeletransportUtils.GetWrappedDirection(transform.position, target.position);
+        
         KinematicMovement.Move(transform, velocity, maxSpeed);
-
-        //transform.position = TeletransportUtils.GetWrappedPosition(transform.position);
     }
 }
