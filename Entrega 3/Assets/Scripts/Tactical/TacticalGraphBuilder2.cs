@@ -9,11 +9,11 @@ public class TacticalGraphBuilder2 : MonoBehaviour {
     public LayerMask obstacleMask; 
 
     [Header("Cobertura dinámica")]
-    public float visionAngle = 60f;       // ángulo del cono de visión
-    public int rayCount = 10;             // cantidad de rayos en el cono
-    public float visionDistance = 10f;    // distancia máxima de los rayos
-    public float dynamicNodeThreshold = 0.5f; // distancia mínima para evitar duplicados
-    public float offsetBehindObstacle = 1f;   // desplazamiento detrás del obstáculo
+    public float visionAngle = 60f;       
+    public int rayCount = 10;             
+    public float visionDistance = 10f;    
+    public float dynamicNodeThreshold = 0.5f; 
+    public float offsetBehindObstacle = 1f;  
 
     [Header("Visualización del grafo táctico")]
     public bool showTacticalNodes = true;
@@ -47,14 +47,14 @@ public class TacticalGraphBuilder2 : MonoBehaviour {
         foreach (var marker in markers) {
             TacticalLocation2 loc = new TacticalLocation2(marker.transform.position);
 
-            // Asignamos las cualidades estáticas
+            // Asignamos las cualidades estaticas
             loc.qualities["curacion"] = marker.curacion ? 1f : 0f;
             loc.qualities["coberturaFija"] = marker.coberturaFija ? 1f : 0f;
             loc.qualities["patrulla"] = marker.patrulla ? 1f : 0f;
             loc.qualities["alarma"] = marker.alarma ? 1f : 0f;
             loc.qualities["potenciador"] = marker.potenciador ? 1f : 0f;
 
-            // Buscar triángulo más cercano
+            // Buscamos el triangulo mas cercano
             loc.closestTriNode = FindClosestTri(marker.transform.position);
 
             tacticalLocations.Add(loc);
@@ -76,7 +76,7 @@ public class TacticalGraphBuilder2 : MonoBehaviour {
             Vector3 dir = (player.position - loc.position).normalized;
             float dist = Vector3.Distance(loc.position, player.position);
 
-            // Cobertura relativa (obstáculo entre el loc y el jugador)
+            // Cobertura relativa (obstaculo entre el loc y el jugador)
             RaycastHit2D hitRel = Physics2D.Raycast(loc.position, dir, dist, obstacleMask);
             loc.qualities["coberturaRelativa"] = (hitRel.collider != null) ? 1f : 0f;
 
@@ -86,11 +86,11 @@ public class TacticalGraphBuilder2 : MonoBehaviour {
         }
     }
 
-    // 🔹 Generación de nodos dinámicos detrás del obstáculo usando normal invertida
+    // Nodos dinamicos detras de un obstaculo
     public void GenerateDynamicCoverNodes(Transform player) {
         tacticalLocations.RemoveAll(loc => loc.qualities["coberturaDinamica"] > 0f);
 
-        Vector3 forward = player.up; // en 2D, "up" suele ser forward
+        Vector3 forward = player.up; 
         for (int i = 0; i < rayCount; i++) {
             float angle = -visionAngle/2f + (visionAngle/(rayCount-1)) * i;
             Vector3 dir = Quaternion.Euler(0,0,angle) * forward;
