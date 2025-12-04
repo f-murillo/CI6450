@@ -67,7 +67,7 @@ public class TacticalGuard : MonoBehaviour {
         EvaluateTransitions();
     }
 
-    // 🔹 Calcular el camino completo hacia un objetivo
+    // Para calcular el camino hacia un objetivo
     void DoNavFullPathTowards(Vector3 goalPos) {
         if (currentPath != null && pathIndex < currentPath.Count) return; // si ya hay un camino
 
@@ -82,7 +82,7 @@ public class TacticalGuard : MonoBehaviour {
 
         if (newPath == null || newPath.Count == 0) {
             Debug.LogWarning("Guardia: no se encontró camino hacia " + goalPos);
-            return; // evita bucle infinito
+            return; // para evitar bucles infinitos
         }
 
         currentPath = newPath;
@@ -91,7 +91,7 @@ public class TacticalGuard : MonoBehaviour {
     }
 
     void FollowPath(Vector3 goalPos) {
-        // Si hay línea de visión directa al objetivo
+        // Si hay linea de vision directa al objetivo
         if (!Physics2D.Linecast(transform.position, goalPos, obstacleMask)) {
             mover.MoveTowards(goalPos);
             return;
@@ -102,7 +102,7 @@ public class TacticalGuard : MonoBehaviour {
             return;
         }
 
-        // Buscar un nodo más cercano al objetivo
+        // Buscar un nodo mas cercano al objetivo
         for (int i = currentPath.Count - 1; i > pathIndex; i--) {
             Vector3 candidate = currentPath[i];
             if (!Physics2D.Linecast(transform.position, candidate, obstacleMask)) {
