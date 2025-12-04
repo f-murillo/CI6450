@@ -45,7 +45,7 @@ public class TacticalPathfinder {
         };
     }
 
-    // 🔹 Cálculo de costo táctico entre TacticalLocations
+    // Costo tactico entre TacticalLocations
     public static float CalculateTacticalCost(
         TacticalGraphBuilder.TacticalLocation a,
         TacticalGraphBuilder.TacticalLocation b,
@@ -91,13 +91,13 @@ public class TacticalPathfinder {
             if (current == goal) break;
 
             if (current is TacticalGraphBuilder.TacticalLocation loc) {
-                // Vecinos tácticos directos
+                // Vecinos tacticos directos
                 foreach (var neighbor in loc.neighbors) {
                     float newCost = costSoFar[current] + CalculateTacticalCost(loc, neighbor, profile);
                     UpdateFrontier(frontier, cameFrom, costSoFar, current, neighbor, newCost, goal.position);
                 }
 
-                // Conexión al NavMesh
+                // Conexion al NavMesh
                 if (loc.closestTriNode != null) {
                     foreach (var triNeighbor in loc.closestTriNode.neighbors) {
                         float newCost = costSoFar[current] + Vector3.Distance(loc.position, triNeighbor.Centroid());
@@ -112,7 +112,7 @@ public class TacticalPathfinder {
                     UpdateFrontier(frontier, cameFrom, costSoFar, current, triNeighbor, newCost, goal.position);
                 }
 
-                // Conexión a TacticalLocations que usan este TriNode
+                // Conexion a TacticalLocations que usan este TriNode
                 foreach (var tactical in tacticalLocations.Where(t => t.closestTriNode == tri)) {
                     float newCost = costSoFar[current] + Vector3.Distance(tri.Centroid(), tactical.position);
                     UpdateFrontier(frontier, cameFrom, costSoFar, current, tactical, newCost, goal.position);
@@ -163,7 +163,7 @@ public class TacticalPathfinder {
 
             if (current is TacticalGraphBuilder.TacticalLocation loc) {
                 foreach (var neighbor in loc.neighbors) {
-                    // Poda dura: si el vecino es cobertura y visible por el jugador → descartar
+                    // si el vecino es cobertura y visible por el jugador se descarta
                     if (IsVisibleCover(neighbor)) continue;
 
                     float newCost = costSoFar[current] + CalculateTacticalCost(loc, neighbor, profile);
