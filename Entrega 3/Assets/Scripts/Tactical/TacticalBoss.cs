@@ -170,21 +170,6 @@ public class TacticalBoss : MonoBehaviour {
         return best;
     }
 
-    /*
-    
-    TriNode PickNearestSafeTri(Vector3 pos) {
-        TriNode best = null;
-        float bestDist = float.MaxValue;
-        foreach (var tri in navMeshGraph.triangles) {
-            var c = tri.Centroid();
-            if (!Physics2D.Linecast(jugador.position, c, obstacleMask)) continue;
-            float d = Vector3.Distance(pos, c);
-            if (d < bestDist) { bestDist = d; best = tri; }
-        }
-        return best;
-    }
-    */
-
     private float DistancePointToSegment2D(Vector3 p, Vector3 a, Vector3 b) {
         Vector2 pa = (Vector2)(p - a);
         Vector2 ba = (Vector2)(b - a);
